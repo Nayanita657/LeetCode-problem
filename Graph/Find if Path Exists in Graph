@@ -1,0 +1,76 @@
+https://leetcode.com/problems/find-if-path-exists-in-graph/
+
+***************************************************SOLUTION***********************************************
+The question is solved by creating the graph using adjacency list.
+TC = O(V + E)
+
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) 
+    {
+        list<int> adj_list[n];
+        int *visited = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            visited[i] = 0;
+        }
+        
+        for(int i = 0; i < edges.size(); i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adj_list[u].push_back(v);
+            adj_list[v].push_back(u);
+        }
+        
+        if(source == destination)
+            return true;
+        
+        //applying BFS to find path exist or not
+        queue<int> pending_Queue;
+        pending_Queue.push(source);
+        visited[source] = 1;
+        while(!pending_Queue.empty())
+        {
+            int current_vertex = pending_Queue.front();
+            pending_Queue.pop();
+           
+            for(int i = 0; i < n; i++)
+            {
+                if(current_vertex == i)
+                    continue;
+                else
+                {
+                    //if(graph[current_vertex][i] == 1)
+                    list<int> :: iterator it;
+                    for(it = adj_list[current_vertex].begin(); it != adj_list[current_vertex].end(); ++it)
+                    {
+                        int neighbour = *it;
+                        if(neighbour == i)
+                        {
+                            if(visited[i] == 1)
+                            continue;
+                            else
+                            {
+                                visited[i] = 1;
+                                if(i == destination)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    pending_Queue.push(i);
+                                }
+                            
+                        }
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+        return false;
+        
+    }
+};
