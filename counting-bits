@@ -1,0 +1,38 @@
+https://leetcode.com/problems/counting-bits/
+*************************************************SOLUTION*****************************************************
+class Solution {
+public:
+    int DecimalToBinary(int num)
+    {
+        int count = 0;
+        string str;
+        while(num)
+        {
+            if(num & 1)
+            {
+                // 1
+                str+='1';
+                count++;
+            }
+            else 
+            {
+                // 0
+                str+='0';  
+            }
+            num>>=1; // Right Shift by 1 
+        }   
+        return count;
+    }
+    
+    
+    vector<int> countBits(int n) 
+    {
+        vector<int> v;
+        for(int i = 0; i <= n; i++)
+        {
+            int no_of_ones = DecimalToBinary(i);
+            v.push_back(no_of_ones);
+        }
+        return v;
+    }
+};
