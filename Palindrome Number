@@ -1,0 +1,46 @@
+https://leetcode.com/problems/palindrome-number/
+
+***********************************************SOLUTION***********************************************************
+
+class Solution {
+public:
+    bool isPalindrome(int x) 
+    {
+        int actual_num = x;
+        int reverse_num = 0;
+        string reverse;
+        
+        if(actual_num > 0)
+        {
+            string temp = to_string(actual_num);
+            if(temp.length() == 1)
+                return true;
+        }
+        if(actual_num < 0)
+        {
+            
+            string temp = to_string(actual_num);
+            int length = temp.length() - 1;
+            if(length == 1)
+                return false;
+        }
+        if(actual_num == 0)
+            return true;
+        
+        while(x != 0)
+        {
+            int rem = x % 10;
+            reverse+=to_string(rem);
+            x = x / 10;
+        }
+        
+       
+        string actual = to_string(actual_num);
+        int result = actual.compare(reverse);
+        if(result == 0)
+            return true;
+        else
+            return false;
+        
+    }
+};
