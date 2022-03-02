@@ -1,0 +1,24 @@
+https://leetcode.com/problems/shuffle-the-array/
+
+************************************************************SOLUTION*******************************************************
+
+
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* shuffle(int* nums, int numsSize, int n, int* returnSize){
+    
+    //int size=numsSize;
+    int *final_arra=(int *)malloc(numsSize*sizeof(int));
+    int i,j,k;
+    
+    for(i=0,j=n,k=0;i<n,j<numsSize,k<numsSize;i++,j++,k++)
+    {
+        final_arra[k]=nums[i];
+        k++;
+        final_arra[k]=nums[j];
+    }
+    *returnSize=numsSize;
+    return final_arra;
+}
