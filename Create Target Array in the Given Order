@@ -1,0 +1,40 @@
+https://leetcode.com/problems/create-target-array-in-the-given-order/
+
+*******************************************************************SOLUTION************************************************************************
+
+class Solution {
+public:
+    vector<int> createTargetArray(vector<int>& nums, vector<int>& index) {
+        
+        vector<int> out_v;
+        
+        for(int i = 0 , j = 0; i < nums.size(); i++, j++)
+        {
+            if(i == index[j])
+            {
+                out_v.push_back(nums[i]);
+            }
+            else
+            {
+                queue<int> pending_Queue;
+                for(int k = index[j]; k < j; k++)
+                {
+                    pending_Queue.push(out_v[k]);
+                    out_v.pop_back();
+                    
+                }
+                int current_index = index[j];
+                //out_v[current_index] = nums[i];
+                out_v.push_back(nums[i]);
+                
+                while(!pending_Queue.empty())
+                {
+                    int front = pending_Queue.front();
+                    pending_Queue.pop();
+                    out_v.push_back(front);
+                }
+            }
+        }
+        return out_v;
+    }
+};
