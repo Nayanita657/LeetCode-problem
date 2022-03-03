@@ -1,0 +1,35 @@
+https://leetcode.com/problems/goal-parser-interpretation/
+
+*******************************************SOLUTION*************************************************
+
+class Solution {
+public:
+    string interpret(string command) 
+    {
+        int size = command.length();
+        string str;
+        int i = 0;
+        while(i < size)
+        {
+            if(command[i] == 'G')
+            {
+                str+='G';
+                i++;
+            }
+            else if(command[i] == '(' && command[i+1] == ')')
+            {
+                str+='o';
+                i = i + 2;
+                
+            }
+            else
+            {
+                str+='a';
+                str+='l';
+                i = i + 4;
+            }
+        }
+        return str;
+        
+    }
+};
