@@ -1,0 +1,26 @@
+https://leetcode.com/problems/shuffle-string/
+
+*************************************************SOLUTION*****************************************************
+
+class Solution {
+public:
+    string restoreString(string s, vector<int>& indices) 
+    {
+        int size = s.length();
+        char *result = new char[size];
+        
+        for(int i = 0; i < s.length(); i++)
+        {
+            int index = indices[i];
+            char ch = s[i];
+            result[index] = ch;
+        }
+    
+        string temp;
+        for(int i = 0; i < size; i++)
+        {
+            temp+=result[i];
+        }
+        return temp;
+    }
+};
