@@ -1,0 +1,28 @@
+https://leetcode.com/problems/jewels-and-stones/
+
+***************************************************SOLUTION*********************************************************
+
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) 
+    {
+         int result = 0;
+        map<char,int> m;
+        for(int i = 0; i < stones.length(); i++)
+        {
+            m[stones[i]]++;
+        }
+        
+        for(int i = 0; i < jewels.length(); i++)
+        {
+           
+            int jewel = jewels[i];
+            if(m.count(jewel) > 0)
+            {
+                result = result + m[jewel];
+            }
+        }
+        return result;
+        
+    }
+};
