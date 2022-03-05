@@ -1,0 +1,41 @@
+https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/
+
+****************************************************SOLUTION*************************************************
+
+class Solution {
+public:
+    int countKDifference(vector<int>& nums, int k) 
+    {
+        int result = 0;
+        map<int, int> m;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            m[nums[i]]++;
+        }
+        
+        map<int, int> :: iterator itr;
+        for(itr = m.begin(); itr != m.end(); itr++)
+        {
+            
+            int current_num = itr->first;
+            if(m[current_num] > 0)
+            {
+                int num1 = current_num - k;
+                int num2 = current_num + k;
+                if(m.count(num1) > 0)
+                {
+                    result = result + (m[current_num] * m[num1]);
+                    
+                }
+                if(m.count(num2) > 0)
+                {
+                    result = result + (m[current_num] * m[num2]);
+                    
+                }
+                m[current_num] = 0;
+                
+            }
+        }
+        return result;
+    }
+};
