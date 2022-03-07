@@ -1,0 +1,53 @@
+https://leetcode.com/problems/increasing-order-search-tree/
+
+*************************************************SOLUTION************************************************************
+This solution is 100% faster than the other submissions
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void Inorder(TreeNode* root, vector<int> &inorder_vector)
+    {
+        if(root == NULL)
+            return;
+        else
+        {
+            Inorder(root->left , inorder_vector);
+            inorder_vector.push_back(root->val);
+            Inorder(root->right , inorder_vector);
+        }
+    }
+    
+    TreeNode* helper(vector<int> &inorder_vector)
+    {
+        if(inorder_vector.size() == 0)
+            return NULL;
+        else
+        {
+            int data = inorder_vector.front();
+            TreeNode* ResultTree = new TreeNode(data);
+            inorder_vector.erase(inorder_vector.begin());
+            ResultTree->right = helper(inorder_vector);
+            return ResultTree;
+        }
+    }
+    
+    TreeNode* increasingBST(TreeNode* root) 
+    {
+        vector<int> inorder_vector;
+        Inorder(root , inorder_vector);
+        
+        return helper(inorder_vector);
+    }
+};
