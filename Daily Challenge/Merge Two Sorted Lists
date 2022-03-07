@@ -1,0 +1,72 @@
+https://leetcode.com/problems/merge-two-sorted-lists/
+
+****************************************************SOLUTION*******************************************************
+This solution is 80% faster than other submissions
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
+    {
+        ListNode* result_List = new ListNode();
+        ListNode* head = result_List;
+        if(list1 == NULL && list2 == NULL)
+            return NULL;
+        while(list1 != NULL && list2 != NULL)
+        {
+            if(list1->val < list2->val)
+            {
+                result_List->val = list1->val;
+                list1 = list1->next;
+            }
+            else if(list2->val < list1->val)
+            {
+                result_List->val = list2->val;
+                list2 = list2->next;
+            }
+            else
+            {
+                result_List->val = list1->val;
+                list1 = list1->next;
+            
+            }
+            result_List->next = new ListNode();
+            result_List = result_List->next;
+        }
+        
+        if(list1 == NULL)
+        {
+            //copy the remaining element from list2 to result_List
+            while(list2->next != NULL)
+            {
+                result_List->val = list2->val;
+                result_List->next = new ListNode();
+                result_List = result_List->next;
+                list2 = list2->next;
+            }
+            result_List->val = list2->val;
+            
+        }
+        if(list2 == NULL)
+        {
+            //copy the remaining element from list1 to result_List
+            while(list1->next != NULL)
+            {
+                result_List->val = list1->val;
+                result_List->next = new ListNode();
+                result_List = result_List->next;
+                list1 = list1->next;
+            }
+            result_List->val = list1->val;
+        }
+        return head;
+    }
+};
