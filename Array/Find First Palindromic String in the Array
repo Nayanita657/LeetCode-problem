@@ -1,0 +1,75 @@
+class Solution {
+public:
+    
+    bool checkPalindrome(string word, int size)
+    {
+        bool flag = false;
+        if(size % 2 == 0)
+        {
+            //checking for even length palindrome
+            int i = 0;
+            while(i <= size/2)
+            {
+                if(word[i] == word[size - 1 - i])
+                {
+                    flag = true;
+                    i++;
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                }
+                   
+            }
+            
+        }
+        else
+        {
+            //checking for odd length palindrome
+            int i = 0;
+            while(i < size/2)
+            {
+                if(word[i] == word[size - 1 - i])
+                {
+                    flag = true;
+                    i++;
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                }
+                   
+            }
+        }
+        return flag;
+    }
+    
+    
+    string firstPalindrome(vector<string>& words) 
+    {
+        string result = "";
+        for(int i = 0; i < words.size(); i++)
+        {
+            string temp = words[i];
+            int subsize = temp.length();
+            if(subsize == 1)
+                return temp;
+            else
+            {
+                 if(temp[0] == temp[subsize - 1])
+                {
+                    //checking done for palindrome
+                    bool isPalindrome = checkPalindrome(temp, subsize);
+                    if(isPalindrome)
+                        return temp;
+                }
+            }
+           
+            //otherwise surely we can say that the string is not palindrome
+        }
+        return result;
+        
+    }
+};
