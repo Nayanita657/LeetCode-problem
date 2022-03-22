@@ -1,0 +1,43 @@
+https://leetcode.com/problems/score-of-parentheses/
+
+****************************************SOLUTION***************************************
+
+class Solution {
+public:
+    int scoreOfParentheses(string &s,int start=0,int end=-1) {
+        if(end==-1)
+            end=s.length()-1;
+        
+        if(end-start==1)
+            return 1;   
+        
+        int answer=0;
+        int count=0;
+        int begin=start;
+        
+        for(int i=start;i<=end;++i)
+        {
+            
+            if(s[i]=='(')
+                count++;
+            else 
+                count--;
+            
+            if(count==0)
+            {
+                
+                if(i==end && begin==start)
+                {
+                    answer=2*scoreOfParentheses(s,start+1,i-1);
+                }
+                else
+                {
+                    answer+=scoreOfParentheses(s,start,i);
+                    start=i+1;
+                    count=0;   
+                }
+            }
+        }
+        return answer;
+    }
+};
