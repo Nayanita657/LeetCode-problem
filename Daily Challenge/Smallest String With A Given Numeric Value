@@ -1,0 +1,100 @@
+https://leetcode.com/problems/smallest-string-with-a-given-numeric-value/
+
+***********************************************SOLUTION**********************************************
+
+class Solution {
+public:
+    char Getchar(int val)
+    {
+        char ch;
+        switch(val){
+            case 0: ch = 'a';
+                   break;
+            case 1: ch = 'b';
+                   break;
+            case 2: ch = 'c';
+                   break;
+            case 3: ch = 'd';
+                   break;
+            case 4: ch = 'e';
+                   break;
+            case 5: ch = 'f';
+                   break;
+            case 6: ch = 'g';
+                   break;
+            case 7: ch = 'h';
+                   break;
+            case 8: ch = 'i';
+                   break;
+            case 9: ch = 'j';
+                   break;
+            case 10: ch = 'k';
+                   break;
+            case 11: ch = 'l';
+                   break;
+            case 12: ch = 'm';
+                   break;
+            case 13: ch = 'n';
+                   break;
+            case 14: ch = 'o';
+                   break;
+            case 15: ch = 'p';
+                   break;
+            case 16: ch = 'q';
+                   break;
+            case 17: ch = 'r';
+                   break;
+            case 18: ch = 's';
+                   break;
+            case 19: ch = 't';
+                   break;
+            case 20: ch = 'u';
+                   break;
+            case 21: ch = 'v';
+                   break;
+            case 22: ch = 'w';
+                   break;
+            case 23: ch = 'x';
+                   break;
+            case 24: ch = 'y';
+                   break;
+            case 25: ch = 'z';
+                   break;
+        }
+        return ch;
+    }
+    string getSmallestString(int n, int k) 
+    {
+        char *result = new char[n];
+        for(int i = 0; i < n; i++)
+        {
+            result[i] = 'a';
+        }
+        int index = n-1;
+        k = k - n;
+        while(k != 0)
+        {
+            if(k > 25)
+            {
+                result[index] = Getchar(25);
+                index--;
+                k = k - 25;
+            }
+            else
+            {
+                result[index] = Getchar(k);
+                index--;
+                k = k - k;
+            }
+        }
+        
+        //converting into string
+        string final_result;
+        for(int i = 0; i < n; i++)
+        {
+            final_result+=result[i];
+        }
+        return final_result;
+        
+    }
+};
