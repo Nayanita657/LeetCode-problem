@@ -1,0 +1,45 @@
+https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+
+*************************************SOLUTION*****************************************
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapNodes(ListNode* head, int k) 
+    {
+        ListNode *temphead = head;
+        vector<int> v;
+        while(temphead != NULL)
+        {
+            v.push_back(temphead->val);
+            temphead = temphead->next;
+        }
+        
+        //swapping
+        //last kth node in vector
+        int index = v.size() - k;
+        int temp = v[k - 1];
+        v[k - 1] = v[index];
+        v[index] = temp;
+        
+        //copying the value from vector to linkedlist
+        temphead = head;
+        int i = 0;
+        while(temphead != NULL)
+        {
+            temphead->val = v[i];
+            i++;
+            temphead = temphead->next;
+        }
+         return head;
+    }
+};
