@@ -1,0 +1,36 @@
+https://leetcode.com/problems/counting-words-with-a-given-prefix/
+
+***************************************SOLUTION******************************
+
+class Solution {
+public:
+    int prefixCount(vector<string>& words, string pref) 
+    {
+        int pref_size = pref.length();
+        int count = 0;
+        for(int i = 0; i < words.size(); i++)
+        {
+            string word = words[i];
+            //check the pref
+            if(word.length() >= pref_size)
+            {
+                int j = 0;
+                string temp;
+                while(j < pref_size)
+                {
+                    temp+=word[j];
+                    j++;
+                }
+            
+                //checking whether the two string are same or not
+                if(!pref.compare(temp))
+                {
+                    count++;
+                }
+            }
+            
+        }
+        return count;
+        
+    }
+};
