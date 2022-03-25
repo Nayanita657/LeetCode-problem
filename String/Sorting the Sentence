@@ -1,0 +1,50 @@
+https://leetcode.com/problems/sorting-the-sentence/
+
+*************************************************SOLUTION**********************************************
+
+class Solution {
+public:
+    string sortSentence(string s) 
+    {
+        vector<string> word_container(10);
+       
+        
+        int word_count = 0;
+        string temp;
+        for(int i = 0; i < s.length(); i++)
+        {
+            
+            if(s[i] == ' ')
+            {
+                temp = "";
+            }
+            else if(s[i] == '1' || s[i] == '2' || s[i] == '3' || s[i] == '4' || s[i] == '5' ||              s[i] == '6' || s[i] == '7' || s[i] == '8' || s[i] == '9')
+            {
+                char ch = s[i];
+                int index = (int)ch - '0';
+                word_container[index - 1] = temp;
+                word_count++;
+            }
+            else
+            {
+                temp+=s[i];
+            }
+            
+        }
+        
+        
+        
+        string result;
+        
+        for(int i = 0; i < word_count - 1; i++)
+        {
+            result = result + word_container[i];
+            result = result + " ";
+        }
+        result = result + word_container[word_count - 1];
+        
+        return result;
+        
+    }
+
+};
