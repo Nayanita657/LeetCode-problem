@@ -1,0 +1,53 @@
+https://leetcode.com/problems/two-city-scheduling/
+
+*************************************SOLUTION******************************************
+
+class Solution {
+public:
+    static bool compare(vector<int>& a, vector<int>& b)
+    {
+        //sorting the vector on the baiss of max profit on taking city B instead of taking city         A
+        //a[0] - a[1] gives profit on taking city B instead of A
+        if((a[0] - a[1]) > (b[0] - b[1]))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    int twoCitySchedCost(vector<vector<int>>& costs) 
+    {
+       sort(costs.begin(), costs.end(), compare);
+        
+        int i = 0;
+        int cost_B = 0;
+        //adding up the cost to city begin
+        //first n/2 rows gives the maximum profit of taking city B instead of A
+        while( i < costs.size()/2)
+        {
+            //v[i][1] gives cost to city B
+            cost_B = cost_B + costs[i][1];
+            i++;
+        }
+    
+        //and it i smentioned in the question that for n/2 person can visit one city remaing            should visit another city
+        //so remaining n/2 city is taken as A
+        int cost_A = 0;
+        while(i < costs.size())
+        {
+            //v[i][0] gives cost to city A
+            cost_A = cost_A + costs[i][0];
+            i++;
+        }
+    
+        return cost_A + cost_B;
+        
+    }
+    
+   
+        
+    
+        
+};
