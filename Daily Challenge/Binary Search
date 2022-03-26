@@ -1,0 +1,31 @@
+https://leetcode.com/problems/binary-search/
+
+******************************************SOLUTION******************************
+
+
+class Solution {
+public:
+    
+    int helper(vector<int> nums , int start , int end , int target)
+    {
+        if(start > end)
+            return -1;
+        else
+        {
+            int mid = (start + end) / 2;
+            if(nums[mid] < target)
+                return helper(nums , mid + 1 , end , target);
+            else if(nums[mid] > target)
+                return helper(nums , start , mid - 1 , target);
+            else
+                return mid;
+        }
+    }
+    
+    int search(vector<int>& nums, int target) 
+    {
+        int start = 0;
+        int end = nums.size() - 1;
+        return helper(nums , start , end , target);
+    }
+};
