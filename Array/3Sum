@@ -1,0 +1,72 @@
+
+https://leetcode.com/problems/3sum/
+
+****************************************SOLUTION********************************
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) 
+    {
+        vector<vector<int>> result; 
+        
+        int size = nums.size();
+	    sort(nums.begin() , nums.end());
+        int prev_ele;
+        
+        for(int i = 0; i < size - 2; i++)
+        {
+            int currEle = nums[i];
+            if(i != 0)
+            {
+                if(currEle == prev_ele)
+                    continue;
+            }
+            
+            int required = 0 - currEle;
+            
+            //applying 2sum
+            int start = i + 1;
+            int end = size - 1;
+            int numStart_prev = INT_MIN;
+            int numEnd_prev = INT_MIN;
+            while(start < end)
+            {
+                if(numStart_prev == nums[start])
+                {
+                    start++;
+                    continue;
+                }
+                if(numEnd_prev == nums[end])
+                {
+                    end--;
+                    continue;
+                }
+                int sum = nums[start] + nums[end];
+                if(sum > required)
+                {
+                    end--;
+                }
+                else if(sum < required)
+                {
+                    start++;
+                }
+                else
+                {
+                    vector<int> inner_result;
+                   
+                    inner_result.push_back(currEle);
+                    inner_result.push_back(nums[start]);
+                    inner_result.push_back(nums[end]);
+                    result.push_back(inner_result);
+                    numStart_prev = nums[start];
+                    numEnd_prev = nums[end];
+                    start++;
+                    end--;
+                }
+            }
+            prev_ele = currEle;
+        }
+        
+        return result;
+    }
+};
