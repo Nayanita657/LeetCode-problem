@@ -1,0 +1,30 @@
+https://leetcode.com/problems/find-the-duplicate-number/
+
+
+***********************************SOLUTION**********************************************
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) 
+    {
+        int n = nums.size();
+        //creating an vector and copying the element from array to vector
+        //vector<int> cal_array(nums + 0, nums + n);
+        //unordered map holds the occurance of the element in the list
+        unordered_map<long long, long long> umap;
+        //pushing element in the unordered list from vector
+        for(auto x:nums)
+            umap[x]++;
+    
+        int element;
+        for (auto itr = umap.begin(); itr != umap.end(); itr++) 
+        {
+            if(itr->second > 1)
+            {
+                element=itr->first;
+                break;
+            }
+        }
+        return element;
+    }
+};
