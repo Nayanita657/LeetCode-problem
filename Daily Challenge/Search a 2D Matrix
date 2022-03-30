@@ -1,0 +1,44 @@
+https://leetcode.com/problems/search-a-2d-matrix/
+
+************************************SOLUTION******************************************
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) 
+    {
+        bool flag = false;
+        int rows = matrix.size();
+        for(int i = 0; i < rows; i++)
+        {
+            int column = matrix[i].size();
+            if(target >= matrix[i][0] && target <= matrix[i][column - 1])
+            {
+                //target is present in this row and applu biary search in this row
+                //binary search
+                int low = 0;
+                int high = column - 1;
+                while(low <= high)
+                {
+                    int mid = (low + high) / 2;
+                    if(target == matrix[i][mid])
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else if(target < matrix[i][mid])
+                    {
+                        high = mid - 1;
+                    }
+                    else
+                    {
+                        low = mid + 1;
+                    }
+                }
+                
+            }
+            if(flag == true)
+                break;
+        }
+        return flag;
+    }
+};
