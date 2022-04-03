@@ -1,0 +1,55 @@
+https://leetcode.com/problems/next-permutation/
+
+*****************************SOLUTION*******************************
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) 
+    {
+        int size = nums.size();
+        
+        int index = size - 1;
+        bool flag = false;
+        int ch_index = 0;
+        while(index > 0)
+        {
+            if(nums[index] > nums[index - 1])
+            {
+                flag = true;
+                ch_index = index;
+                break;
+            }
+            index--;
+        }
+        if(flag == false)
+        {
+            //array is in descending order so
+            reverse(nums.begin() , nums.end());
+        }
+        else
+        {
+            int min_diff = INT_MAX;
+            int num = nums[ch_index - 1];
+            int min_diff_index = 0;
+            int k = ch_index;
+            while(k < size)
+            {
+                int diff = nums[k] - num;
+                if(diff > 0)
+                {
+                    if(min_diff >= diff)
+                    {
+                        min_diff = diff;
+                        min_diff_index = k;
+                    }
+                }
+                k++;
+            }
+            
+            //swapping
+            swap(nums[ch_index - 1],nums[min_diff_index]);
+            
+            reverse(nums.begin() + ch_index,nums.end());
+        }
+    }
+};
