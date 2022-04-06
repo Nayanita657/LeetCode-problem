@@ -1,0 +1,146 @@
+class Solution {
+public:
+    long long int nCr(int n, int r)
+    {
+ 
+        // p holds the value of n*(n-1)*(n-2)...,
+        // k holds the value of r*(r-1)...
+        long long p = 1, k = 1;
+ 
+        // C(n, r) == C(n, n-r),
+        // choosing the smaller value
+        if (n - r < r)
+            r = n - r;
+ 
+        if (r != 0) 
+        {
+            while (r) 
+            {
+                p *= n;
+                k *= r;
+ 
+                // gcd of p, k
+                long long m = __gcd(p, k);
+ 
+                // dividing by gcd, to simplify
+                // product division by their gcd
+                // saves from the overflow
+                p /= m;
+                k /= m;
+ 
+                n--;
+                r--;
+            }
+ 
+            // k should be simplified to 1
+            // as C(n, r) is a natural number
+            // (denominator should be 1 ) .
+        }
+ 
+    else
+        p = 1;
+    
+        return p;
+    }
+ 
+    int threeSumMulti(vector<int>& nums, int target)
+    {
+        long long int result = 0;
+        int size = nums.size();
+	    sort(nums.begin() , nums.end());
+        int prev_ele;
+        
+        unordered_map<int,int> m;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            m[nums[i]]++;
+        }
+        
+        for(int i = 0; i < size - 2; i++)
+        {
+            int currEle = nums[i];
+            if(i != 0)
+            {
+                if(currEle == prev_ele)
+                    continue;
+            }
+            
+            int required = target - currEle;
+            
+            //applying 2sum
+            int start = i + 1;
+            int end = size - 1;
+            int numStart_prev = INT_MIN;
+            int numEnd_prev = INT_MIN;
+            while(start < end)
+            {
+                if(numStart_prev == nums[start])
+                {
+                    start++;
+                    continue;
+                }
+                if(numEnd_prev == nums[end])
+                {
+                    end--;
+                    continue;
+                }
+                int sum = nums[start] + nums[end];
+                if(sum > required)
+                {
+                    end--;
+                }
+                else if(sum < required)
+                {
+                    start++;
+                }
+                else
+                {
+                    if(nums[start] != nums[end] && nums[start] != currEle && nums[end] != currEle)
+                    {
+                        //three numbers are distinct
+                        int freq1 = m[currEle];
+                        int freq2 = m[nums[start]];
+                        int freq3 = m[nums[end]];
+                        
+                        result = result + (freq1 * freq2 * freq3);
+                    }
+                    
+                    else
+                    {
+                        if(nums[start] == nums[end] && nums[start] == currEle && nums[end] == currEle)
+                        {
+                            int freq = m[currEle];
+                            result = result + nCr(freq , 3);
+                        }
+                        else if(nums[start] == nums[end])
+                        {
+                            int freq1 = m[nums[start]]; // select 2 out of total frequency
+                            int freq2 = m[currEle];
+                            result = result + (freq2 * (nCr(freq1 , 2)));
+                        }
+                        else if(nums[start] == currEle)
+                        {
+                            int freq1 = m[currEle]; //select 2 out of total frequency
+                            int freq2 = m[nums[end]];
+                            result = result + (freq2 * nCr(freq1 , 2));
+                        }
+                        else
+                        {
+                            int freq1 = m[currEle]; //select 2 out of total freqiency
+                            int freq2 = m[nums[start]];
+                            result = result + (freq2 * nCr(freq1 , 2));
+                        }
+                    }
+                    
+                    numStart_prev = nums[start];
+                    numEnd_prev = nums[end];
+                    start++;
+                    end--;
+                }
+            }
+            prev_ele = currEle;
+        }
+        
+        return result % int(1e9 + 7);;
+    }
+};
