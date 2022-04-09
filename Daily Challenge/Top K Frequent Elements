@@ -1,0 +1,70 @@
+https://leetcode.com/problems/top-k-frequent-elements/
+
+**************************************SOLUTION*********************************************
+
+solution uisng min heap. which takes O(klogn).
+
+class Solution {
+public:
+    
+    
+    vector<int> topKFrequent(vector<int>& nums, int k) 
+    {
+        unordered_map<int , int> m;
+        for(int i = 0; i < nums.size(); i++)
+            m[nums[i]]++;
+        
+        //creating min heap
+        unordered_map<int, int> :: iterator itr;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        for(itr = m.begin(); itr != m.end(); itr++)
+        {
+            pq.push(make_pair(itr->second, itr->first));
+            if(pq.size() > k)
+                pq.pop();
+           
+        }
+        
+        vector<int> result;
+        while(pq.size() != 0)
+        {
+            result.push_back(pq.top().second);
+            pq.pop();
+        }
+        return result;
+    }
+};
+
+*****************************************************************************************************
+solution using vector and pair . time complexity O(nlogn)
+
+class Solution {
+public:
+    
+    static bool comparator(pair<int , int>&a , pair<int , int>&b)
+    {
+        return a.second > b.second;
+    }
+    
+    vector<int> topKFrequent(vector<int>& nums, int k) 
+    {
+        map<int , int> m;
+        for(int i = 0; i < nums.size(); i++)
+            m[nums[i]]++;
+        
+        vector<pair<int , int>> new_vec;
+        map<int , int> :: iterator itr;
+        
+        for(itr = m.begin(); itr != m.end(); itr++)
+            new_vec.push_back(make_pair(itr->first , itr->second));
+        
+        
+        sort(new_vec.begin() , new_vec.end(), comparator);
+        vector<int> final_result;
+        
+        for(int i = 0; i < k; i++)
+            final_result.push_back(new_vec[i].first);
+        
+        return final_result;
+    }
+};
