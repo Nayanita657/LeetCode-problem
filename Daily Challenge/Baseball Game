@@ -1,0 +1,45 @@
+https://leetcode.com/problems/baseball-game/
+
+***********************************SOLUTION**************************************
+
+class Solution {
+public:
+    int calPoints(vector<string>& ops) 
+    {
+        stack<int> t;
+        for(int i = 0; i < ops.size(); i++)
+        {
+            if(ops[i] == "C")
+            {
+                t.pop();
+            }
+            else if(ops[i] == "D")
+            {
+                t.push(t.top() * 2);
+            }
+            else if(ops[i] == "+")
+            {
+                int front1 = t.top();
+                t.pop();
+                int front2 = t.top();
+                t.pop();
+                t.push(front2);
+                t.push(front1);
+                t.push(front1 + front2);
+            }
+            else
+            {
+                t.push(stoi(ops[i]));
+            }
+        }
+        
+        //pop the elements from the stack and calculate the sum;
+        int result_sum = 0;
+        while(t.size() != 0)
+        {
+            result_sum = result_sum + t.top();
+            t.pop();
+        }
+        return result_sum;
+    }
+};
