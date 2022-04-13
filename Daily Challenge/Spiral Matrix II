@@ -1,0 +1,59 @@
+https://leetcode.com/problems/spiral-matrix-ii/
+
+**************************************SOLUTION********************************************
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) 
+    {
+        int row = n;
+        int column = n;
+        
+        vector<vector<int>> input( row , vector<int> (column, 0));
+        
+        int count = n * n;
+        int row_start = 0;
+        int row_end = n - 1;
+        int col_start = 0;
+        int col_end = n - 1;
+        int result = 1;
+    
+        while(count>=1)
+        {
+            for(int i = col_start; i <= col_end; i++)
+            {
+                input[row_start][i] = result;
+                count--;
+                result++;
+            }
+            row_start = row_start + 1;
+        
+            for(int k  =row_start; k <= row_end; k++)
+            {
+                input[k][col_end] = result;
+                count--;
+                result++;
+            }
+            col_end=col_end-1;
+        
+            for(int j = col_end; j >= col_start; j--)
+            {
+        	    input[row_end][j] = result;
+                count--;
+                result++;
+            }
+            row_end = row_end-1;
+        
+
+            for(int p = row_end; p >= row_start; p--)
+            {
+                input[p][col_start] = result;
+                count--;
+                result++;
+            }
+            col_start = col_start + 1;
+        }
+        
+       return input; 
+    }
+};
