@@ -1,0 +1,81 @@
+https://leetcode.com/problems/convert-bst-to-greater-tree/
+***************************************SOLUTION***************************************
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorder;
+    
+    int binary_search(int data)
+    {
+        int index;
+        int start = 0;
+        int end = inorder.size() - 1;
+        while(start <= end)
+        {
+            int mid = start + end;
+            if(inorder[mid] == data)
+            {
+                index = mid;
+                break;
+            }
+            else if(inorder[mid] < data)
+                start = mid + 1;
+            else
+                end = mid - 1;
+        }
+        return index;
+    }
+    
+    void inorder_helper(TreeNode* root)
+    {
+        if(root == NULL)
+            return;
+        else
+        {
+            inorder_helper(root->left);
+            inorder.push_back(root->val);
+            inorder_helper(root->right);
+        }
+    }
+    
+    void helper(TreeNode* root)
+    {
+        if(root == NULL)
+            return;
+        else
+        {
+            //searching the root of data in the inorder vector using binary search
+            int index = binary_search(root->val);
+            for(int i = index + 1; i < inorder.size(); i++)
+            {
+                root->val = root->val + inorder[i];
+            }
+            helper(root->left);
+            helper(root->right);
+        }
+    }
+    
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        if(root == NULL)
+            return root;
+        //storing the inorder traversal order in vector inorder
+        inorder_helper(root);
+        //call each value of the node and searching that node in the inorder vector
+    //once the node is found,sum rest of the node values present in the inorder vector with the current node value
+        //finally return the root node of tree once the entire tree get updated
+        helper(root);
+        return root;
+    }
+};
