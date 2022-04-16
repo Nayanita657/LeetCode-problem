@@ -1,7 +1,27 @@
 https://leetcode.com/problems/convert-bst-to-greater-tree/
 ***************************************SOLUTION***************************************
-
                                         Approach 1 - TC = O(N)
+ //This approach is implemented using reverse inorder method.
+ //first right subtree is visited then root value is modified lastly left subtree is visited
+ class Solution {
+public:
+   
+    int sum = 0;
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        if(root == NULL)
+            return NULL;
+        TreeNode* temp;
+        temp = convertBST(root->right);
+        sum = sum + root->val;
+        root->val = sum;
+        temp = convertBST(root->left);
+        return root;
+    }
+};
+
+__________________________________________________________________________________________________________________
+                                        Approach 2 - TC = O(N)
                                        
 /**
  * Definition for a binary tree node.
@@ -41,7 +61,7 @@ public:
 };
 
 __________________________________________________________________________________________________________________
-                                            Approach - 2 TC-O(N^2)
+                                            Approach - 3 TC-O(N^2)
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
