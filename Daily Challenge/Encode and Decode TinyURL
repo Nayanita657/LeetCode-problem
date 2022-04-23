@@ -1,0 +1,29 @@
+https://leetcode.com/problems/encode-and-decode-tinyurl/
+
+
+********************************SOLUTION*************************************
+
+class Solution {
+public:
+    map<string,string> m;
+    int num = 0;
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl) 
+    {
+        string addon = to_string(num);
+        string url = "http://tinyurl.com/";
+        url = url + addon;
+        m[url] = longUrl;
+        return url;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl) 
+    {
+        return m[shortUrl];
+    }
+};
+
+// Your Solution object will be instantiated and called as such:
+// Solution solution;
+// solution.decode(solution.encode(url));
