@@ -1,0 +1,44 @@
+https://leetcode.com/problems/design-underground-system/
+
+**************************************SOLUTION**********************************
+
+class UndergroundSystem {
+public:
+    
+    unordered_map<int,pair<string,int>> checkin;
+    unordered_map<string,pair<int,int>> path;
+    
+    UndergroundSystem() 
+    {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) 
+    {
+        checkin[id] = {stationName,t};
+    }
+    
+    void checkOut(int id, string stationName, int t) 
+    {
+        auto temp = checkin[id];
+        checkin.erase(id);
+        string path_name = temp.first + "-" + stationName;
+        path[path_name].first += t - temp.second;  
+        path[path_name].second += 1; 
+    }
+    
+    double getAverageTime(string startStation, string endStation) 
+    {
+        string routename = startStation + "-" + endStation;
+        auto temp = path[routename];
+        return (double)temp.first/temp.second;
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj->checkIn(id,stationName,t);
+ * obj->checkOut(id,stationName,t);
+ * double param_3 = obj->getAverageTime(startStation,endStation);
+ */
