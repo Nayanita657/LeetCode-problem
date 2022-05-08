@@ -1,0 +1,52 @@
+https://leetcode.com/contest/weekly-contest-292/problems/largest-3-same-digit-number-in-string/
+
+**********************************************SOLUTION**************************************************
+
+class Solution {
+public:
+    string largestGoodInteger(string num) 
+    {
+        stack<int> st;
+        st.push(num[0] - 48);
+        int count = 0;
+        int max_ele = INT_MIN;
+        for(int i = 1; i < num.length(); i++)
+        {
+			int curr_num = num[i] - 48;
+            if(curr_num == st.top())
+            {
+                count++;
+            }
+            else
+            {
+                if(count >= 2)
+                {
+                    //largest 3 element found
+                    int temp = st.top() * 100 + st.top() * 10 + st.top();
+					//cout<<temp <<" ";
+                    if(max_ele < temp)
+                        max_ele = temp;
+					//cout<<max_ele<<"\n";
+                }
+                st.pop();
+                st.push(num[i] - 48);
+                
+                count = 0;
+            }
+            
+        }
+        
+        if(count >= 2)
+        {
+            int temp = st.top() * 100 + st.top() * 10 + st.top();
+            if(max_ele < temp)
+                max_ele = temp;
+        }
+        if(max_ele == 0)
+            return "000";
+        else if(max_ele == INT_MIN)
+            return "";
+        else
+            return to_string(max_ele);
+    }
+};
