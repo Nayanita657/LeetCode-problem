@@ -1,0 +1,52 @@
+https://leetcode.com/problems/palindrome-partitioning/
+
+************************************SOLUTION**********************************
+
+
+class Solution {
+public:
+    vector<vector<string>> result;
+    bool isPalindrome(string str, int start, int end)
+    {
+       while(start <= end)
+        {
+            if(str[start++] != str[end--])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    void helper(int start_index, string str, vector<string>& output)
+    {
+        if(start_index == str.length())
+        {
+            result.push_back(output);
+            return;
+        }
+        else
+        {
+            //spliting the array
+            for(int i = start_index; i < str.length(); i++)
+            {
+                string temp = str.substr(start_index, i - start_index + 1);
+                //if(isPalindrome(temp))
+                if(isPalindrome(str, start_index, i))
+                {
+                    output.push_back(temp);
+                    helper(i + 1, str, output);
+                    output.pop_back();
+                }
+               
+            }
+        }
+    }
+    
+    
+    vector<vector<string>> partition(string s) 
+    {
+        vector<string> output;
+        helper(0, s, output);
+        return result;
+    }
+};
