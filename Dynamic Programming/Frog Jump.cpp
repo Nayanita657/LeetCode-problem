@@ -77,3 +77,5 @@ int frogJump(int n, vector<int> &heights)
     int ans = dp[1];
     return ans;
 }
+TC = O(N)
+SC = O(N) {STACK SPACE + DP ARRAY]
