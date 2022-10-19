@@ -24,6 +24,7 @@ int frogJump(int n, vector<int> &heights)
     return helper(n - 1, heights);
     
 }
+TC = O(2^N)
 
 USING MEMOIZATION(DYNAMIC PROGRAMMING)
 ____________________________________________________________________________________________________________________________________________________________
@@ -51,4 +52,4 @@ int frogJump(int n, vector<int> &heights)
     return helper(n - 1, heights, dp);
     
 }  
-  
+TC = O(N)
