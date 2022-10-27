@@ -4,9 +4,7 @@ https://leetcode.com/problems/unique-paths-ii/description/
 
 int helper(int i, int j, vector<vector<int>> obstacleGrid, vector<vector<int>>& dp)
     {
-        if(i < 0 || j < 0)
-            return 0;
-        else if(obstacleGrid[i][j] == 1)
+        if(i < 0 || j < 0 || obstacleGrid[i][j] == 1)
             return 0;
         else if(i == 0 && j == 0)
             return 1;
