@@ -30,8 +30,8 @@ int minimumElements(vector<int> &num, int x)
     else
         return ans;
 }
-TC =
-SC =
+TC = >>O(2 ^ N)
+SC = O(TARGET)
   
 **************************************************MEMOIZTION*******************************************************
 
@@ -68,8 +68,8 @@ int minimumElements(vector<int> &num, int x)
     else
         return ans;
 }
-TC =
-SC =
+TC = O(N * TARGET)
+SC = O(N * TARGET) + O(TARGET)
   
 **************************************************TABULATION****************************************************
 
@@ -107,5 +107,5 @@ int minimumElements(vector<int> &num, int x)
     else
         return ans;
 }
-TC =
-SC = 
+TC = O(N * TARGET)
+SC = O(N * TARGET)
